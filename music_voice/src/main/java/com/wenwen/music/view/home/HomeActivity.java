@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.wenwen.lib_commin_ui.base.BaseActivity;
 import com.wenwen.lib_commin_ui.paper_indicator.ScaleTransitionPagerTitleView;
 import com.wenwen.music.R;
 import com.wenwen.music.model.CHANNEL;
@@ -25,7 +26,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
-public class HomeActivity extends FragmentActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private static final CHANNEL[] channels = new CHANNEL[]{CHANNEL.MY,CHANNEL.DISCORY,CHANNEL.FRIEND};
     private DrawerLayout mDrawerLayout;
     private TextView mToggleView;
@@ -93,6 +94,7 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initData() {
+
     }
 
 

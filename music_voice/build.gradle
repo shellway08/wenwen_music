@@ -31,4 +31,5 @@ dependencies {
     implementation rootProject.depsLibs.appcompact
     implementation rootProject.depsLibs.magicindicator
     implementation project(path: ':lib_commin_ui')
+    implementation project(path: ':lib_network')
 }

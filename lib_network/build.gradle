@@ -31,4 +31,6 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.depsLibs.appcompact
+    api rootProject.depsLibs.okhttp //okttp依赖
+    compileOnly rootProject.depsLibs.gson
 }
