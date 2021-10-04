@@ -32,4 +32,8 @@ dependencies {
     implementation rootProject.depsLibs.magicindicator
     implementation project(path: ':lib_commin_ui')
     implementation project(path: ':lib_network')
+
+    //rxjava库
+    implementation rootProject.depsLibs.rxjava
+    implementation rootProject.depsLibs.rxandroid
 }

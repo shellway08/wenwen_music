@@ -62,7 +62,6 @@ public class RequestParams {
     }
 
     public void put(String key, Object object) throws FileNotFoundException {
-
         if (key != null) {
             fileParams.put(key, object);
         }
@@ -70,7 +69,6 @@ public class RequestParams {
 
     public boolean hasParams() {
         if(urlParams.size() > 0 || fileParams.size() > 0){
-
             return true;
         }
         return false;
