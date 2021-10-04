@@ -6,6 +6,9 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url "https://jitpack.io"
+        }
         maven{
             url 'http://localhost:8081/repository/wenwen-releases/'
             credentials{
@@ -34,6 +37,9 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url "https://jitpack.io"
+        }
         maven{
             url 'http://localhost:8081/repository/wenwen-releases/'
             credentials{

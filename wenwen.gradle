@@ -11,10 +11,11 @@ ext {
             multiDexEnabled  : true]
     depsVersion = [
             appcompact: '28.0.0',
-
+            magicindicator: '1.6.0',
     ]
 
     depsLibs = [
             appcompact: "com.android.support:appcompat-v7:${depsVersion.appcompact}",
+            magicindicator: "com.github.hackware1993:MagicIndicator:${depsVersion.magicindicator}",
     ]
 }
