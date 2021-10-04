@@ -30,4 +30,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.depsLibs.appcompact
     implementation rootProject.depsLibs.magicindicator
+    implementation project(path: ':lib_commin_ui')
 }
