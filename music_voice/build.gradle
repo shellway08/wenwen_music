@@ -32,8 +32,13 @@ dependencies {
     implementation rootProject.depsLibs.magicindicator
     implementation project(path: ':lib_commin_ui')
     implementation project(path: ':lib_network')
+    implementation project(path: ':lib_image_loader')
 
     //rxjava库
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
+    //eventbus类库依赖
+    implementation rootProject.depsLibs.eventbus
+    //gson解析库
+    implementation rootProject.depsLibs.gson
 }

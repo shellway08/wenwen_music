@@ -2,6 +2,7 @@ package com.wenwen.lib_network.okhttp.response;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.wenwen.lib_network.okhttp.exception.OkHttpException;
@@ -23,7 +24,7 @@ import okhttp3.Response;
  * @function 专门处理JSON的回调
  */
 public class CommonJsonCallback implements Callback {
-
+    private static final String TAG = "CommonJsonCallback";
     /**
      * the logic layer exception, may alter in different app
      */
@@ -54,12 +55,14 @@ public class CommonJsonCallback implements Callback {
 
     @Override
     public void onFailure(final Call call, final IOException ioexception) {
+        Log.d(TAG, "onFailure: ------------");
         /**
          * 此时还在非UI线程，因此要转发
          */
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
+                Log.d(TAG, "run: "+ioexception);
                 mListener.onFailure(new OkHttpException(NETWORK_ERROR, ioexception));
             }
         });
@@ -68,6 +71,7 @@ public class CommonJsonCallback implements Callback {
     @Override
     public void onResponse(final Call call, final Response response) throws IOException {
         final String result = response.body().string();
+        Log.d(TAG, "onResponse: ---------------"+result);
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {

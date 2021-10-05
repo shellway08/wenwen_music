@@ -10,13 +10,18 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wenwen.lib_commin_ui.base.BaseActivity;
 import com.wenwen.lib_commin_ui.paper_indicator.ScaleTransitionPagerTitleView;
+import com.wenwen.lib_image_loader.app.ImageLoaderManager;
 import com.wenwen.music.R;
 import com.wenwen.music.model.CHANNEL;
+import com.wenwen.music.user.LoginEvent;
+import com.wenwen.music.utils.UserManager;
 import com.wenwen.music.view.home.adapter.HomePagerAdapter;
+import com.wenwen.music.view.login.LoginActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -26,6 +31,10 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private static final CHANNEL[] channels = new CHANNEL[]{CHANNEL.MY,CHANNEL.DISCORY,CHANNEL.FRIEND};
     private DrawerLayout mDrawerLayout;
@@ -33,6 +42,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private TextView mSearchView;
     private ViewPager mViewPager;
     private HomePagerAdapter mAdapter;
+    private View unLogginLayout;
+    private ImageView mPhotoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +51,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
-
+        EventBus.getDefault().register(this);
 
     }
     private void initView() {
@@ -54,6 +65,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         mAdapter = new HomePagerAdapter(getSupportFragmentManager(),channels);
         mViewPager.setAdapter(mAdapter);
         initMagicIndicator();
+
+        unLogginLayout = findViewById(R.id.unloggin_layout);
+        unLogginLayout.setOnClickListener(this);
+        mPhotoView = findViewById(R.id.avatr_view);
     }
 
     private void initMagicIndicator() {
@@ -105,6 +120,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.toggle_view:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.unloggin_layout:
+                if(!UserManager.getInstance().hasLogined()){
+                    LoginActivity.start(this);
+                }else {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginEvent(LoginEvent event){
+        unLogginLayout.setVisibility(View.GONE);
+        mPhotoView.setVisibility(View.VISIBLE);
+        ImageLoaderManager.getInstance().displayImageForCircle(mPhotoView,UserManager.getInstance().getUser().data.photoUrl);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

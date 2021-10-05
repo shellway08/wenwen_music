@@ -3,6 +3,7 @@ package com.wenwen.lib_network.okhttp.response;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.wenwen.lib_network.okhttp.exception.OkHttpException;
 import com.wenwen.lib_network.okhttp.listener.DisposeDataHandle;
@@ -21,6 +22,7 @@ import okhttp3.Response;
  * @文件描述：专门处理文件下载回调
  */
 public class CommonFileCallback implements Callback {
+    private static final String TAG = "CommonFileCallback";
     /**
      * the java layer exception, do not same to the logic error
      */
@@ -37,6 +39,7 @@ public class CommonFileCallback implements Callback {
     private int mProgress;
 
     public CommonFileCallback(DisposeDataHandle handle) {
+        Log.d(TAG, "CommonFileCallback: -----------");
         this.mListener = (DisposeDownloadListener) handle.mListener;
         this.mFilePath = handle.mSource;
         this.mDeliveryHandler = new Handler(Looper.getMainLooper()) {
@@ -53,6 +56,7 @@ public class CommonFileCallback implements Callback {
 
     @Override
     public void onFailure(final Call call, final IOException ioexception) {
+        Log.d(TAG, "onFailure: -------------");
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -63,6 +67,7 @@ public class CommonFileCallback implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
+        Log.d(TAG, "onResponse: ------------");
         final File file = handleResponse(response);
         mDeliveryHandler.post(new Runnable() {
             @Override

@@ -41,7 +41,7 @@ public class CommonOkHttpClient {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request =
-                        chain.request().newBuilder().addHeader("User-Agent", "Wenwen-Mobile") // 标明发送本次请求的客户端
+                        chain.request().newBuilder().addHeader("User-Agent", "Imooc-Mobile") // 标明发送本次请求的客户端
                                 .build();
                 return chain.proceed(request);
             }

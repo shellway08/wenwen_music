@@ -41,11 +41,12 @@ public class CommonRequest {
                 mHeaderBuilder.add(entry.getKey(),entry.getValue());
             }
         }
-
+        FormBody mFormBody = mFormBodyBuilder.build();
+        Headers mHeader = mHeaderBuilder.build();
         Request request = new Request.Builder()
                 .url(url)
-                .headers(mHeaderBuilder.build())
-                .post(mFormBodyBuilder.build())
+                .headers(mHeader)
+                .post(mFormBody)
                 .build();
         return request;
     }
@@ -68,10 +69,10 @@ public class CommonRequest {
      * @return
      */
     public static Request createGetRequest(String url,RequestParams params,RequestParams headers){
-        StringBuilder stringBuilder = new StringBuilder(url).append("?");
+        StringBuilder urlBuilder = new StringBuilder(url).append("?");
         if(params!=null){
             for(Map.Entry<String,String> entry : params.urlParams.entrySet()){
-                stringBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+                urlBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
             }
         }
         Headers.Builder mHeaderBuilder = new Headers.Builder();
@@ -80,11 +81,12 @@ public class CommonRequest {
                 mHeaderBuilder.add(entry.getKey(),entry.getValue());
             }
         }
-
+        String newUrl = urlBuilder.substring(0,urlBuilder.length()-1);
+        Headers mHeader = mHeaderBuilder.build();
         return  new Request.Builder()
-                .url(url)
-                .headers(mHeaderBuilder.build())
+                .url(newUrl)
                 .get()
+                .headers(mHeader)
                 .build();
     }
 

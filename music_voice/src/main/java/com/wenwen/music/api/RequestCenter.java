@@ -13,8 +13,8 @@ import com.wenwen.music.user.User;
 public class RequestCenter {
 
     static class HttpConstants {
-        private static final String ROOT_URL = "http://imooc.com/api";
-        //private static final String ROOT_URL = "http://39.97.122.129";
+       // private static final String ROOT_URL = "http://imooc.com/api";
+        private static final String ROOT_URL = "http://39.97.122.129";
 
         /**
          * 首页请求接口
@@ -32,10 +32,10 @@ public class RequestCenter {
     }
 
     //根据参数发送所有post请求
-    public static void postRequest(String url, RequestParams params, DisposeDataListener listener,
+    public static void getRequest(String url, RequestParams params, DisposeDataListener listener,
                                   Class<?> clazz) {
-        CommonOkHttpClient.post(CommonRequest.
-                createPostRequest(url, params), new DisposeDataHandle(listener, clazz));
+        CommonOkHttpClient.get(CommonRequest.
+                createGetRequest(url, params), new DisposeDataHandle(listener, clazz));
     }
 
 /*    public static void requestRecommandData(DisposeDataListener listener) {
@@ -60,6 +60,6 @@ public class RequestCenter {
         RequestParams params = new RequestParams();
         params.put("mb", "18734924592");
         params.put("pwd", "999999q");
-        RequestCenter.postRequest(HttpConstants.LOGIN, params, listener, User.class);
+        RequestCenter.getRequest(HttpConstants.LOGIN, params, listener, User.class);
     }
 }
